@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model department {
+  id       Int        @id
+  depname  String     @db.VarChar(200)
+  employee employee[]
+}
+
+model drinkorder {
+  id          Int    @id
+  Menuname    String @db.VarChar(100)
+  Description String @db.VarChar(100)
+  Price       Int
+}
+
+model employee {
+  id         Int        @id @default(autoincrement())
+  firstname  String     @db.VarChar(100)
+  lastname   String     @db.VarChar(100)
+  gender     String     @db.VarChar(50)
+  address    String     @db.VarChar(200)
+  salary     Int
+  startdate  DateTime   @db.Date
+  dep_id     Int
+  pos_id     Int
+  department department @relation(fields: [dep_id], references: [id], onUpdate: Restrict, map: "fkdep")
+  position   position   @relation(fields: [pos_id], references: [id], onUpdate: Restrict, map: "fkpos")
+
+  @@index([dep_id], map: "fkdep")
+  @@index([pos_id], map: "fkpos")
+}
+
+model position {
+  id       Int        @id
+  posname  String     @db.VarChar(100)
+  employee employee[]
+}
