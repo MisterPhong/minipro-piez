@@ -55,20 +55,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             />
           </Link>
 
-          <Link href={"about"} style={{ textDecoration: "none" }}>
-            <NavLink
-              label="ราคาเหรียญ"
-              icon={<IconCoinBitcoin size="1rem" stroke={1.5} />}
-            />
-          </Link>
-
-          <Link href={"testapi"} style={{ textDecoration: "none" }}>
-            <NavLink
-              label="Youtube"
-              icon={<IconBrandYoutube size="1rem" stroke={1.5} />}
-            />
-          </Link>
-
         
         </Navbar>
       }

@@ -14,90 +14,70 @@ import axios from "axios";
 
 export default function FormCreate() {
   const form = useForm({
-    initialValues: {
-      firstname: "",
-      lastname: "",
-      gender: "",
-      address: "",
-      salary: "",
-      startdate: "",
-      dep_id: "",
-      pos_id: "",
-    },
-  });
+      initialValues: {
+          FullName: "",
+          Phone: "",
+          Gender: "",
+          Occupation: "",
+          Address: "",
+          CheckInDate: "",
+          CheckOutDate: "",
+          Email: "",
+          termsOfService: false,
+      },
 
+  });
   return (
     <Box maw={300} mx="auto">
       <form
         onSubmit={form.onSubmit(async (values) => {
-          const res = await axios.post("http://localhost:3000/api/em", {
-            firstname: values.firstname,
-            lastname: values.lastname,
-            gender: values.gender,
-            address: values.address,
-            salary: Number(values.salary),
-            startdate: values.startdate,
-            dep_id: Number(values.dep_id),
-            pos_id: Number(values.pos_id),
-          });
-          window.location.replace("/");
-        })}
-      >
-        <TextInput mt={4} label="ชื่อ" {...form.getInputProps("firstname")} />
+          try{
+            const res = await axios.post("http://localhost:3000/api/em", {
+              FullName: values.FullName,
+              Phone: values.Phone,
+              Gender: values.Gender,
+              Occupation: values.Occupation,
+              Address: values.Address,
+              CheckInDate: values.CheckInDate,
+              CheckOutDate: values.CheckOutDate,
+              Email: values.Email,
+            })
+            window.location.reload();
+        } catch (error) {
+            // Handle the error, e.g., display an error message to the user
+            console.error(error);
+        }
+    })}> 
 
-        <TextInput mt={4} label="นามสกุล" {...form.getInputProps("lastname")} />
+
+
+        <TextInput withAsterisk mt={4} label="Name" {...form.getInputProps("FullName")} />
+
+        <TextInput withAsterisk mt={4} label="Phone" {...form.getInputProps("Phone")} />
 
         <Select
+        withAsterisk
           mt={4}
           label="เพศ"
           placeholder="Pick one"
           data={[
-            { value: "ชาย", label: "ชาย" },
-            { value: "หญิง", label: "หญิง" },
+            { value: "Male", label: "Male" },
+            { value: "Female", label: "Female" },
           ]}
-          {...form.getInputProps("gender")}
+          {...form.getInputProps("Gender")}
         />
 
-        <TextInput mt={4} label="สาขา" {...form.getInputProps("address")} />
+        <TextInput withAsterisk mt={4} label="Occupation" {...form.getInputProps("Occupation")} />
 
-        <NumberInput
-          mt={4}
-          label="เงินเดือน"
-          {...form.getInputProps("salary")}
-        />
-        <DateInput
-          mt={4}
-          label="วันที่เริ่มงาน"
-          placeholder="Date input"
-          mx="auto"
-          {...form.getInputProps("startdate")}
-        />
+        <TextInput withAsterisk  mt={4} label="Address" {...form.getInputProps("Address")} />
 
-        <Select
-          mt={4}
-          label="แผนก"
-          placeholder="Pick one"
-          data={[
-            { value: '1', label: 'การตลาด' },
-            { value: '2', label: 'บัญชี' },
-            { value: '3', label: 'บริการทั่วไป' },
-          ]}
-          {...form.getInputProps("dep_id")}
-        />
+        <TextInput withAsterisk mt={4} label="CheckInDate" {...form.getInputProps("CheckInDate")} />
 
-        <Select
-          mt={4}
-          label="ตำแหน่ง"
-          placeholder="Pick one"
-          data={[
-            { value: '1', label: 'งานทั่วไป' },
-            { value: '2', label: 'เจ้าหน้าที่การเงินและบัญชี' },
-            { value: '3', label: 'ต้อนรับลูกค้า' },
-            { value: '4', label: 'เจ้าหน้าที่การตลาด' },
-            { value: '5', label: 'บริการหน้าร้าน' },
-          ]}
-          {...form.getInputProps("pos_id")}
-        />
+        <TextInput withAsterisk mt={4} label="CheckOutDate" {...form.getInputProps("CheckOutDate")} />
+
+        <TextInput withAsterisk mt={4} label="Email" {...form.getInputProps("Email")} />
+
+
         <Group position="right" mt="md">
           <Button type="submit">Submit</Button>
         </Group>

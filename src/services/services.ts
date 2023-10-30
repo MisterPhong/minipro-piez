@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { Prisma, department, employee, position } from "@prisma/client";
+import { Prisma,  employee } from "@prisma/client";
 
 export async function findAllEmployee(): Promise<employee[]> {
     return await prisma.employee.findMany({
@@ -8,15 +8,15 @@ export async function findAllEmployee(): Promise<employee[]> {
 }
 
 export async function findAll() {
-    return await prisma.$queryRaw`SELECT employee.id AS id, employee.firstname AS firstname,
-    employee.lastname AS lastname, employee.gender AS gender,
-    employee.address AS address, employee.salary AS salary,
-    department.depname AS depname, position.posname AS posname
-    FROM employee, position, department
-    WHERE employee.dep_id = department.id AND
-    employee.pos_id = position.id
-    ORDER by employee.id ASC`
+    return await prisma.$queryRaw`SELECT employee.id AS id, employee.FullName AS FullName,
+    employee.Phone AS Phone, employee.Gender AS Gender,
+    employee.Occupation AS Occupation, employee.Address AS Address,
+    employee.CheckInDate AS CheckInDate, employee.CheckOutDate AS CheckOutDate,
+    employee.Email AS Email
+    FROM employee
+    ORDER BY employee.id ASC`;
 }
+
 
 export async function removeEmployee(id: number) {
     return await prisma.employee.delete({
@@ -24,20 +24,23 @@ export async function removeEmployee(id: number) {
     })
 }
 // เพิ่มข้อมูลใหม่ในตาราง employee
-export async function createEmployee(data: Prisma.employeeCreateManyInput) {
+export async function createEmployee(data: Prisma.employeeCreateInput) {
     return await prisma.employee.create({
         data: {
-            firstname : data.firstname,
-            lastname : data.lastname,
-            gender : data.gender,
-            address : data.address,
-            salary : data.salary,
-            startdate : data.startdate,
-            dep_id : data.dep_id,
-            pos_id : data.pos_id,
+            FullName: data.FullName,
+            Phone: data.Phone,
+            Gender: data.Gender,
+            Occupation: data.Occupation,
+            Address: data.Address,
+            CheckInDate: data.CheckInDate,
+            CheckOutDate: data.CheckOutDate,
+            Email: data.Email
         }
-    })
+    });
 }
+
+
+
 // อ่านข้อมูล 1 แถว by id ใน table employee
 export async function findOneEmployee(id: number): Promise<employee | null> {
     return await prisma.employee.findUnique({
@@ -49,19 +52,5 @@ export async function  updateEmployee(id: number, data: Prisma.employeeUpdateInp
     return await prisma.employee.update({
         where: {id: id},
         data: data
-    })
-}
-
-// อ่านข้อมูลทั้งหมดใน table department
-export async function findDep(): Promise<department[]> {
-    return await prisma.department.findMany({
-        orderBy: {id: "asc"}
-    })
-}
-
-// อ่านข้อมูลทั้งหมดใน table position
-export async function findPos(): Promise<position[]> {
-    return await prisma.position.findMany({
-        orderBy: {id: "asc"}
     })
 }

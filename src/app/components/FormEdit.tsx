@@ -15,27 +15,27 @@ import axios from "axios";
 export default function FormEditTest({ id }: any) {
   const form = useForm({
     initialValues: {
-      firstname: "",
-      lastname: "",
-      gender: "",
-      address: "",
-      salary: "",
-      startdate: new Date(),
-      dep_id: "",
-      pos_id: "",
+      FullName: "",
+      Phone: "",
+      Gender: "",
+      Occupation: "",
+      Address: "",
+      CheckInDate: "",
+      CheckOutDate: "",
+      Email: "",
     },
   });
   const getData = async (empid: number) => {
     const res = await axios.get("http://localhost:3000/api/em/" + empid);
     form.setValues({
-      firstname: res.data.data.firstname,
-      lastname: res.data.data.lastname,
-      gender: res.data.data.gender,
-      address: res.data.data.address,
-      salary: res.data.data.salary,
-      startdate: new Date(res.data.data.startdate),
-      dep_id: String(res.data.data.dep_id),
-      pos_id: String(res.data.data.pos_id),
+      FullName: res.data.data.FullName,
+      Phone: res.data.data.Phone,
+      Gender: res.data.data.Gender,
+      Occupation: res.data.data.Occupation,
+      Address: res.data.data.Address,
+      CheckInDate: res.data.data.CheckInDate,
+      CheckOutDate: res.data.data.CheckOutDate,
+      Email: String(res.data.data.Email),
     });
   };
   useEffect(() => {
@@ -48,72 +48,43 @@ export default function FormEditTest({ id }: any) {
       <form
         onSubmit={form.onSubmit(async (values) => {
           const res = await axios.put("http://localhost:3000/api/em/" + id, {
-            firstname: values.firstname,
-            lastname: values.lastname,
-            gender: values.gender,
-            address: values.address,
-            salary: Number(values.salary),
-            startdate: values.startdate,
-            dep_id: Number(values.dep_id),
-            pos_id: Number(values.pos_id),
+            FullName: values.FullName,
+            Phone: values.Phone,
+            Gender: values.Gender,
+            Occupation: values.Occupation,
+            Address: values.Address,
+            CheckInDate: values.CheckInDate,
+            CheckOutDate: values.CheckOutDate,
+            Email: values.Email,
           });
           window.location.replace("/");
         })}
       >
-        <TextInput mt={4} label="ชื่อ" {...form.getInputProps("firstname")} />
+        <TextInput mt={4} label="Name" {...form.getInputProps("FullName")} />
 
-        <TextInput mt={4} label="นามสกุล" {...form.getInputProps("lastname")} />
+<TextInput mt={4} label="Phone" {...form.getInputProps("Phone")} />
 
-        <Select
-          mt={4}
-          label="เพศ"
-          placeholder="Pick one"
-          data={[
-            { value: "ชาย", label: "ชาย" },
-            { value: "หญิง", label: "หญิง" },
-          ]}
-          {...form.getInputProps("gender")}
-        />
+<Select
+  mt={4}
+  label="เพศ"
+  placeholder="Pick one"
+  data={[
+    { value: "Male", label: "Male" },
+    { value: "Female", label: "Female" },
+  ]}
+  {...form.getInputProps("Gender")}
+/>
 
-        <TextInput mt={4} label="สาขา" {...form.getInputProps("address")} />
+<TextInput mt={4} label="Occupation" {...form.getInputProps("Occupation")} />
 
-        <NumberInput
-          mt={4}
-          label="เงินเดือน"
-          {...form.getInputProps("salary")}
-        />
-        <DateInput
-          mt={4}
-          label="วันที่เริ่มงาน"
-          placeholder="Date input"
-          mx="auto"
-          {...form.getInputProps("startdate")}
-        />
+<TextInput mt={4} label="Address" {...form.getInputProps("Address")} />
 
-        <Select
-          mt={4}
-          label="แผนก"
-          placeholder="Pick one"
-          data={[
-            { value: '1', label: 'การตลาด' },
-            { value: '2', label: 'บัญชี' },
-            { value: '3', label: 'บริการทั่วไป' },
-          ]}
-          {...form.getInputProps("dep_id")}
-        />
-        <Select
-          mt={4}
-          label="ตำแหน่ง"
-          placeholder="Pick one"
-          data={[
-            { value: '1', label: 'งานทั่วไป' },
-            { value: '2', label: 'เจ้าหน้าที่การเงินและบัญชี' },
-            { value: '3', label: 'ต้อนรับลูกค้า' },
-            { value: '4', label: 'เจ้าหน้าที่การตลาด' },
-            { value: '5', label: 'บริการหน้าร้าน' },
-          ]}
-          {...form.getInputProps("pos_id")}
-        />
+<TextInput mt={4} label="CheckInDate" {...form.getInputProps("CheckInDate")} />
+
+<TextInput mt={4} label="CheckOutDate" {...form.getInputProps("CheckOutDate")} />
+
+
+<TextInput mt={4} label="Email" {...form.getInputProps("Email")} />
         <Group position="right" mt="md">
           <Button type="submit">Submit</Button>
         </Group>

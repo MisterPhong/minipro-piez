@@ -39,13 +39,14 @@ export default function ReadEmployee() {
     const rows = employee.map((row: any,index) => (
       <tr key={row.id}>
           <td>{index}</td>
-      <td>{row.firstname}</td>
-      <td>{row.lastname}</td>
-      <td>{row.gender}</td>
-      <td>{row.address}</td>
-      <td>{row.salary}</td>
-      <td>{row.depname}</td>
-      <td>{row.posname}</td>
+      <td>{row.FullName}</td>
+      <td>{row.Phone}</td>
+      <td>{row.Gender}</td>
+      <td>{row.Occupation}</td>
+      <td>{row.Address}</td>
+      <td>{row.CheckInDate}</td>
+      <td>{row.CheckOutDate}</td>
+      <td>{row.Email}</td>
       <td>
         <Group>
           <ActionIcon
@@ -99,14 +100,15 @@ export default function ReadEmployee() {
           <thead>
             <tr>
               <td>ID</td>
-              <td>ชื่อ</td>
-              <td>นามสกุล</td>
-              <td>เพศ</td>
-              <td>สาขา</td>
-              <td>เงินเดือน</td>
-              <td>แผนก</td>
-              <td>ตำแหน่ง</td>
-              <td>tools</td>
+              <td>Name</td>
+              <td>Phone</td>
+              <td>Gender</td>
+              <td>Occupation</td>
+              <td>Address</td>
+              <td>CheckInDate</td>
+              <td>CheckOutDate</td>
+              <td>Email</td>
+
             </tr>
           </thead>
           <tbody>{rows}</tbody>
